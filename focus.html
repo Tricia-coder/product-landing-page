@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Focus Mode</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+.focus-container{
+text-align:center;
+padding:60px;
+}
+
+.focus-box{
+background:#f4f4f4;
+padding:30px;
+border-radius:15px;
+max-width:500px;
+margin:auto;
+margin-top:30px;
+}
+
+.quote{
+font-style:italic;
+margin-top:20px;
+}
+
+.music-buttons button{
+margin:5px;
+}
+
+.dark .focus-box{
+background:#1e1e1e;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2 class="logo">StudyFlow</h2>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+<button id="darkMode">🌙</button>
+
+</nav>
+
+</header>
+
+<div class="focus-container">
+
+<h1>🎯 Focus Mode</h1>
+
+<p>Eliminate distractions and stay productive</p>
+
+<div class="focus-box">
+
+<h3>Current Task</h3>
+
+<input
+type="text"
+id="task"
+placeholder="What are you focusing on?"
+style="width:90%; padding:15px;"
+
+>
+
+<br><br>
+
+<button onclick="saveTask()">
+Save Task
+</button>
+
+<br><br>
+
+<button onclick="goPomodoro()">
+Start Pomodoro
+</button>
+
+<button onclick="toggleFullscreen()">
+Fullscreen Focus
+</button>
+
+</div>
+
+<div class="quote" id="quote">
+"Stay focused and never give up."
+</div>
+
+<br>
+
+<h3>Ambient Sounds</h3>
+
+<div class="music-buttons">
+
+<button onclick="playSound('A1')">A1</button> <button onclick="playSound('A2')">A2</button> <button onclick="playSound('A3')">A3</button> <button onclick="stopSound()">Stop</button>
+
+</div>
+
+<br>
+
+<button onclick="window.location.href='index.html'">
+← Back Home
+</button>
+
+</div>
+
+<footer>
+
+<p>© 2026 StudyFlow</p>
+
+</footer>
+
+<audio id="A1" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<audio id="A2" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+</audio>
+
+<audio id="A3" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
+</audio>
+
+<script src="script.js"></script>
+
+<script>
+
+if(localStorage.getItem("darkMode") === "enabled"){
+document.body.classList.add("dark");
+}
+
+function goPomodoro(){
+window.location.href="pomodoro.html";
+}
+
+function toggleFullscreen(){
+
+if(!document.fullscreenElement){
+document.documentElement.requestFullscreen();
+}else{
+document.exitFullscreen();
+}
+
+}
+
+function playSound(type){
+
+stopSound();
+document.getElementById(type).play();
+
+}
+
+function stopSound(){
+
+document.getElementById("A1").pause();
+document.getElementById("A2").pause();
+document.getElementById("A3").pause();
+
+}
+
+function saveTask(){
+
+let task = document.getElementById("task").value;
+
+if(task === "") return;
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+tasks.push({
+text: task,
+done:false
+});
+
+localStorage.setItem("tasks", JSON.stringify(tasks));
+
+alert("Task added to Progress Page!");
+
+document.getElementById("task").value = "";
+
+}
+
+const quotes = [
+
+"Focus on one thing at a time.",
+"Small progress is still progress.",
+"Stay consistent.",
+"Discipline beats motivation.",
+"You got this! I'm proud of your progress.",
+"Your future self will thank you."
+
+];
+
+setInterval(()=>{
+
+let random = Math.floor(Math.random()*quotes.length);
+document.getElementById("quote").innerText = quotes[random];
+
+},8000);
+
+</script>
+
+</body>
+
+</html>
