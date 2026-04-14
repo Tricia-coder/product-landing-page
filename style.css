@@ -1,0 +1,313 @@
+/* ======================
+GENERAL
+====================== */
+
+body{
+margin:0;
+font-family:'Poppins', sans-serif;
+background:white;
+color:black;
+transition:0.3s ease;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+/* ======================
+HEADER
+====================== */
+
+header{
+background:#333;
+color:white;
+padding:15px;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.nav-links{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+.nav-links a{
+color:white;
+}
+
+/* ======================
+BUTTONS
+====================== */
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+margin:5px;
+transition:0.3s;
+background:#4CAF50;
+color:white;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ======================
+HOME SECTION
+====================== */
+
+#home{
+text-align:center;
+padding:100px;
+background:#f4f4f4;
+}
+
+/* ======================
+FEATURES
+====================== */
+
+#features{
+padding:50px;
+text-align:center;
+}
+
+.features-container{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+.feature{
+background:#f4f4f4;
+padding:25px;
+width:250px;
+border-radius:12px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.feature:hover{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ======================
+FEATURES PAGE
+====================== */
+
+.features-page{
+text-align:center;
+padding:50px;
+}
+
+.feature-cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+flex-wrap:wrap;
+}
+
+.feature-card{
+background:white;
+padding:30px;
+width:250px;
+border-radius:15px;
+color:black;
+transition:0.35s ease;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+cursor:pointer;
+}
+
+.feature-card:hover{
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 15px 30px rgba(0,0,0,0.15);
+}
+
+.details{
+opacity:0;
+margin-top:10px;
+transition:0.3s ease;
+font-size:14px;
+}
+
+.feature-card:hover .details{
+opacity:1;
+}
+
+.feature-card:hover .short{
+opacity:0;
+}
+
+/* ======================
+PROGRESS PAGE
+====================== */
+
+.progress-container{
+max-width:700px;
+margin:auto;
+padding:30px;
+text-align:center;
+}
+
+.todo-item{
+display:flex;
+justify-content:space-between;
+padding:10px;
+background:#f4f4f4;
+margin:5px 0;
+border-radius:8px;
+}
+
+#currentTaskBox{
+background:#f4f4f4;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+}
+
+/* ======================
+POMODORO TIMER
+====================== */
+
+.circle{
+position:relative;
+width:200px;
+margin:auto;
+}
+
+.circle svg{
+transform:rotate(-90deg);
+}
+
+#timer{
+position:absolute;
+top:40%;
+left:40%;
+transform:translate(-50%,-50%);
+font-size:30px;
+font-weight:bold;
+}
+
+/* ======================
+CONTACT
+====================== */
+
+#contact{
+text-align:center;
+padding:50px;
+background:#f4f4f4;
+}
+
+/* ======================
+FOOTER
+====================== */
+
+footer{
+background:#333;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+/* ======================
+DARK MODE
+====================== */
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.dark header{
+background:#1a1a1a;
+}
+
+.dark h1,
+.dark h2,
+.dark h3{
+color: rgb(255, 133, 133);
+}
+
+.dark #home{
+background:#181818;
+}
+
+.dark #contact{
+background:#181818;
+}
+
+.dark .feature{
+background:#1e1e1e;
+color:white;
+border:1px solid #333;
+}
+
+.dark .feature-card{
+background:#1e1e1e;
+color:white;
+border:1px solid #333;
+}
+
+.dark .todo-item{
+background:#1e1e1e;
+color:white;
+}
+
+.dark #currentTaskBox{
+background:#1e1e1e;
+color:white;
+}
+
+.dark button{
+background:#2a2a2a;
+color:white;
+}
+
+.dark .progress-bar{
+background:#333;
+}
+
+.dark .progress-fill{
+background: rgb(255, 133, 133);
+}
+
+.dark #progress{
+stroke: rgb(255, 133, 133);
+}
+
+.dark .logo{
+color: rgb(255, 133, 133);
+}
+
+/* ======================
+RESPONSIVE
+====================== */
+
+@media(max-width:768px){
+
+.features-container{
+flex-direction:column;
+align-items:center;
+}
+
+.nav-links{
+flex-direction:column;
+}
+
+#home{
+padding:60px;
+}
+
+}
