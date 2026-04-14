@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyFlow Timer</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.timer-container{
+text-align:center;
+margin-top:60px;
+}
+
+#timer{
+font-size:60px;
+margin:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2 class="logo">StudyFlow</h2>
+
+<ul class="nav-links">
+
+<li><a href="index.html">Home</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+<button id="darkMode">🌙</button>
+
+</nav>
+
+</header>
+
+<div class="timer-container">
+
+<h1>Pomodoro Timer</h1>
+
+<div class="circle">
+
+<svg width="200" height="200">
+
+<circle
+cx="100"
+cy="100"
+r="90"
+stroke="#eee"
+stroke-width="10"
+fill="none"
+/>
+
+<circle
+id="progress"
+cx="100"
+cy="100"
+r="90"
+stroke="#4CAF50"
+stroke-width="10"
+fill="none"
+stroke-dasharray="565"
+stroke-dashoffset="0"
+/>
+
+</svg>
+
+<div id="timer">25:00</div>
+
+</div>
+
+<button onclick="startTimer()">Start</button> <button onclick="pauseTimer()">Pause</button> <button onclick="resetTimer()">Reset</button>
+
+<br><br>
+
+<button onclick="setTime(10)">10 min</button> <button onclick="setTime(15)">15 min</button> <button onclick="setTime(20)">20 min</button> <button onclick="setTime(25)">25 min</button> <button onclick="setTime(30)">30 min</button>
+
+<br><br>
+
+<a href="./index.html">← Back Home</a>
+
+</div>
+
+<footer>
+
+<p>© 2026 StudyFlow</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+if(localStorage.getItem("darkMode") === "enabled"){
+document.body.classList.add("dark");
+}
+
+let time = 1500;
+let totalTime = 1500;
+let timer;
+let isRunning = false;
+
+function updateDisplay(){
+
+let minutes = Math.floor(time/60);
+let seconds = time % 60;
+
+seconds = seconds < 10 ? "0" + seconds : seconds;
+
+document.getElementById("timer").innerHTML =
+minutes + ":" + seconds;
+
+let progress = document.getElementById("progress");
+
+if(progress){
+let percent = time / totalTime;
+progress.style.strokeDashoffset = 565 - (565 * percent);
+}
+
+}
+
+window.startTimer = function(){
+
+if(isRunning) return;
+
+isRunning = true;
+
+timer = setInterval(function(){
+
+time--;
+updateDisplay();
+
+if(time < 0){
+clearInterval(timer);
+isRunning = false;
+alert("Time's up! Take a break!");
+
+let minutesDone = totalTime / 60;
+let saved = parseInt(localStorage.getItem("minutes")) || 0;
+
+localStorage.setItem("minutes", saved + minutesDone);
+
+startBreak();
+}
+
+},1000)
+
+}
+
+window.pauseTimer = function(){
+clearInterval(timer);
+isRunning = false;
+}
+
+window.resetTimer = function(){
+
+clearInterval(timer);
+isRunning = false;
+
+time = 1500;
+totalTime = 1500;
+
+updateDisplay();
+}
+
+window.setTime = function(minutes){
+
+clearInterval(timer);
+isRunning = false;
+
+time = minutes * 60;
+totalTime = minutes * 60;
+
+updateDisplay();
+}
+
+function startBreak(){
+
+time = 300;
+totalTime = 300;
+
+timer = setInterval(function(){
+
+time--;
+updateDisplay();
+
+if(time < 0){
+clearInterval(timer);
+alert("Break finished!");
+resetTimer();
+}
+
+},1000)
+
+}
+
+updateDisplay();
+
+});
+
+</script>
+
+</body>
+
+</html>

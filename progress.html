@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyFlow Progress</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+.progress-container{
+max-width:700px;
+margin:auto;
+padding:30px;
+text-align:center;
+}
+
+.todo-input{
+padding:10px;
+width:60%;
+}
+
+.todo-list{
+margin-top:20px;
+text-align:left;
+}
+
+.progress-bar{
+background:#eee;
+height:20px;
+border-radius:10px;
+overflow:hidden;
+margin:20px 0;
+}
+
+.progress-fill{
+background:#4CAF50;
+height:100%;
+width:0%;
+transition:0.5s;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2 class="logo">StudyFlow</h2>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+<button id="darkMode">🌙</button>
+
+</nav>
+
+</header>
+
+<div class="progress-container">
+
+<h1>📊 Progress Tracking</h1>
+
+<h3 id="streak">🔥 0 Day Streak</h3>
+
+<h2>🎯 Current Focus Task</h2>
+
+<div id="currentTaskBox">
+No current focus task
+</div>
+
+<hr>
+
+<h3>Pomodoro Minutes Completed</h3>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+<p id="minutesDone">0 Minutes Completed</p>
+
+<hr>
+
+<h2>📝 To-Do List</h2>
+
+<input type="text" id="taskInput" class="todo-input" placeholder="Add a task...">
+
+<br><br>
+
+<button onclick="addTask()">Add</button> <button onclick="clearCompleted()">Clear Completed</button>
+
+<div class="todo-list" id="todoList"></div>
+
+<h3 id="taskStats">0 / 0 Completed</h3>
+
+<br>
+
+<a href="features.html">← Back to Features</a> <br> <a href="index.html">← Back Home</a>
+
+</div>
+
+<footer>
+
+<p>© 2026 StudyFlow</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+
+if(localStorage.getItem("darkMode") === "enabled"){
+document.body.classList.add("dark");
+}
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let minutes = parseInt(localStorage.getItem("minutes")) || 0;
+let streak = parseInt(localStorage.getItem("streak")) || 0;
+let lastDate = localStorage.getItem("lastDate") || "";
+
+function save(){
+localStorage.setItem("tasks", JSON.stringify(tasks));
+localStorage.setItem("minutes", minutes);
+localStorage.setItem("streak", streak);
+localStorage.setItem("lastDate", lastDate);
+}
+
+function checkStreak(){
+
+let today = new Date().toDateString();
+
+if(lastDate !== today){
+
+if(lastDate === new Date(Date.now()-86400000).toDateString()){
+streak++;
+}else{
+streak = 1;
+}
+
+lastDate = today;
+save();
+
+}
+
+document.getElementById("streak").innerHTML =
+"🔥 " + streak + " Day Streak";
+
+}
+
+function addTask(){
+
+let input = document.getElementById("taskInput");
+
+if(input.value === "") return;
+
+tasks.push({
+text: input.value,
+done:false
+});
+
+input.value="";
+
+save();
+render();
+
+}
+
+function toggleTask(index){
+
+tasks[index].done = !tasks[index].done;
+
+save();
+render();
+
+}
+
+function deleteTask(index){
+
+tasks.splice(index,1);
+
+save();
+render();
+
+}
+
+function clearCompleted(){
+
+tasks = tasks.filter(task => !task.done);
+
+save();
+render();
+
+}
+
+function render(){
+
+let list = document.getElementById("todoList");
+
+list.innerHTML = "";
+
+let completed = 0;
+
+tasks.forEach((task,index)=>{
+
+if(task.done) completed++;
+
+list.innerHTML += `
+
+<div class="todo-item">
+
+<label>
+<input type="checkbox" ${task.done ? "checked" : ""} 
+onclick="toggleTask(${index})">
+
+${task.text}
+
+</label>
+
+<button onclick="deleteTask(${index})">❌</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("taskStats").innerHTML =
+completed + " / " + tasks.length + " Completed";
+
+updateProgress();
+showCurrentTask();
+
+}
+
+function updateProgress(){
+
+document.getElementById("minutesDone").innerHTML =
+minutes + " Minutes Completed";
+
+let percent = (minutes / 300) * 100;
+
+document.getElementById("progressFill").style.width =
+percent + "%";
+
+}
+
+function addPomodoro(minutesDone){
+
+minutes += minutesDone;
+
+save();
+updateProgress();
+checkStreak();
+
+}
+
+function showCurrentTask(){
+
+let current = tasks.find(task => !task.done);
+
+if(current){
+document.getElementById("currentTaskBox").innerHTML =
+"<strong>" + current.text + "</strong>";
+}else{
+document.getElementById("currentTaskBox").innerHTML =
+"No current focus task";
+}
+
+}
+
+checkStreak();
+render();
+
+</script>
+
+</body>
+
+</html>
