@@ -79,7 +79,7 @@ script.js
 1 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/product-landing-page.git
+git clone https://github.com/tricia-coder/product-landing-page.git
 ```
 
 2.Open folder in VS Code
