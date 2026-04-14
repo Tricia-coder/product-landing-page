@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us - StudyFlow</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+.contact-container{
+max-width:600px;
+margin:auto;
+padding:40px;
+text-align:center;
+}
+
+.contact-container input,
+.contact-container textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+font-family:'Poppins', sans-serif;
+}
+
+.contact-container textarea{
+height:150px;
+resize:none;
+}
+
+.contact-info{
+margin-top:40px;
+padding-top:20px;
+border-top:1px solid #ccc;
+}
+
+.contact-info a{
+display:block;
+margin:10px 0;
+text-decoration:none;
+font-weight:bold;
+}
+
+.dark .contact-container input,
+.dark .contact-container textarea{
+background:#1e1e1e;
+color:white;
+border:1px solid #333;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2 class="logo">StudyFlow</h2>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+<button id="darkMode">🌙</button>
+
+</nav>
+
+</header>
+
+<div class="contact-container">
+
+<h1>Contact Us</h1>
+
+<p>Help us improve StudyFlow</p>
+
+<form 
+action="https://formsubmit.co/triciasapitula05@gmail.com" 
+method="POST">
+
+<input
+type="text"
+name="name"
+placeholder="Your Name"
+required
+
+>
+
+<textarea 
+name="message"
+placeholder="Concern / Suggestion / Feedback"
+required
+></textarea>
+
+<button type="submit">Send Email</button>
+
+</form>
+
+<br>
+
+<button onclick="window.location.href='index.html'">
+← Back Home
+</button>
+
+<div class="contact-info">
+
+<h3>Contact Information</h3>
+
+<a href="tel:09095642647">
+📞 09095642647
+</a>
+
+<a href="https://www.facebook.com/Triciaaa05/" target="_blank">
+📘 Facebook
+</a>
+
+<a href="https://www.instagram.com/notyour.tricia?igsh=ZXM1cng1c2g5ZTJi&utm_source=qr" target="_blank">
+📷 Instagram
+</a>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 StudyFlow</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
